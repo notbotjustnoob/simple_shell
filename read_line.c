@@ -14,21 +14,25 @@ char *read_line(void)
 {
 	char *line = NULL;
 	size_t bufsize = 0;
-	char *prompt_text=malloc(100*sizeof(char));
-	strcpy(prompt_text, "$ ");
+	char *prompt_text = malloc(100 * sizeof(char));
 
+	strcpy(prompt_text, "$ ");
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
 		if (feof(stdin))
 		{
+			free(prompt_text);
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
 			perror(prompt_text);
+			free(prompt_text);
 			exit(EXIT_FAILURE);
 		}
 	}
-	free (prompt_text);
+
+	free(prompt_text);
+
 	return (line);
 }

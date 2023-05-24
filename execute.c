@@ -14,9 +14,9 @@
 int execute(char **args)
 {
 	pid_t pid;
-	char *prompt_text=malloc(100*sizeof(char));
-	strcpy(prompt_text, "$ ");
+	char *prompt_text = malloc(100 * sizeof(char));
 
+	strcpy(prompt_text, "$ ");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -35,6 +35,6 @@ int execute(char **args)
 		/*Parent process*/
 		wait(NULL);
 		}
-	free (prompt_text);
+	free(prompt_text);
 	return (1);
 }

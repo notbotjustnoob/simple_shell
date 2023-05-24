@@ -13,7 +13,7 @@
 
 char **split_line(char *line)
 {
-	char *prompt_text=malloc(100*sizeof(char));
+	char *prompt_text = malloc(100 * sizeof(char));
 	char msgerror[50];
 	char **args = malloc(2 * sizeof(char *));
 
@@ -31,6 +31,8 @@ char **split_line(char *line)
 	line[strcspn(line, "\n")] = '\0';
 	args[0] = line;
 	args[1] = NULL;
-	free (prompt_text);
+
+	free(prompt_text);
+
 	return (args);
 }

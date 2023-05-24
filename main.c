@@ -16,7 +16,8 @@ int main(void)
 	char *line;
 	char **args;
 	int interactive = isatty(STDIN_FILENO);
-	char *prompt_text=malloc(100*sizeof(char));
+	char *prompt_text = malloc(100 * sizeof(char));
+
 	strcpy(prompt_text, "$ ");
 	do {
 		if (interactive)
@@ -37,12 +38,14 @@ int main(void)
 			if (strcmp(args[0], "exit") == 0)
 			{
 				state = 0;
+				free(line);
+				free(args);
 			}
-		
-			}
+		}
+
 	} while (state == 1);
 	free(line);
 	free(args);
-	free (prompt_text);
+	free(prompt_text);
 	return (1);
 }
