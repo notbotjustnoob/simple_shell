@@ -26,7 +26,7 @@ int main(void)
 			}
 		line = read_line();
 		args = split_line(line);
-		if (strcmp(args[0], "exit") != 0)
+		if (strcmp(args[0], "exit") != 0 && strcmp(args[0], "\0") != 0)
 		{
 			execute(args);
 			free(line);
@@ -34,7 +34,11 @@ int main(void)
 			}
 		else
 		{
-			state = 0;
+			if (strcmp(args[0], "exit") == 0)
+			{
+				state = 0;
+			}
+		
 			}
 	} while (state == 1);
 	return (1);
