@@ -10,12 +10,12 @@
  * Return: The line from stdin
  */
 
-char *read_line(char *line)
+char *read_line(void)
 {
-	line = NULL;
+	char *line = NULL;
 	size_t bufsize = 0;
-	char *prompt_text = "$ ";
-	size_t len;
+	char *prompt_text=malloc(100*sizeof(char));
+	strcpy(prompt_text, "$ ");
 
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
@@ -29,13 +29,6 @@ char *read_line(char *line)
 			exit(EXIT_FAILURE);
 		}
 	}
-    len = strlen(line);
-    if (len > 0 && line[len - 1] == '\n')
-        {
-			line[len - 1] = '\0';
-			}
-	free(bufsize);
-	free(prompt_text);
-	free(len);
+	free (prompt_text);
 	return (line);
 }
