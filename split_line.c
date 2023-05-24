@@ -13,9 +13,10 @@
 
 char **split_line(char *line)
 {
+	
 	char *prompt_text = "#cisfun$ ";
 	char msgerror[50];
-	char **args = malloc(sizeof(char *));
+	char **args = malloc(2*sizeof(char *));
 
 	if (!args)
 	{
@@ -27,7 +28,7 @@ char **split_line(char *line)
 		}
 
 	line[strcspn(line, "\n")] = '\0';
-	args[0] = line;
+	args[0] = strdup(line);
 	args[1] = NULL;
 	return (args);
 }
