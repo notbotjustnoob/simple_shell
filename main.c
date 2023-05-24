@@ -1,0 +1,41 @@
+#include "shell.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+/**
+ * main - Entry point of the shell program
+ *
+ * Return: 0 if successful, 1 if an error occurs
+ */
+
+int main(void)
+{
+	int state = 1;
+	char *line;
+	char **args;
+	int interactive = isatty(STDIN_FILENO);
+	char *prompt_text = "$ ";
+
+	do {
+		if (interactive)
+		{
+			write(1, prompt_text, strlen(prompt_text));
+			fflush(stdout);
+			}
+		line = read_line();
+		args = split_line(line);
+		if (strcmp(args[0], "exit") != 0)
+		{
+			execute(args);
+			free(line);
+			free(args);
+			}
+		else
+		{
+			state = 0;
+			}
+	} while (state == 1);
+	return (1);
+}
