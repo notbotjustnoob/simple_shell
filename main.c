@@ -16,7 +16,7 @@ int main(void)
 	char *line;
 	char **args;
 	int interactive = isatty(STDIN_FILENO);
-	char *prompt_text = "#cisfun$ ";
+	char *prompt_text = "$ ";
 
 	do {
 		if (interactive)

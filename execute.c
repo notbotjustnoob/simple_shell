@@ -14,7 +14,7 @@
 int execute(char **args)
 {
 	pid_t pid;
-	char *prompt_text = "#cisfun$ ";
+	char *prompt_text = "$ ";
 
 	pid = fork();
 	if (pid == 0)
