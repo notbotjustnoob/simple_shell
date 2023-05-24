@@ -13,7 +13,7 @@
 
 char **split_line(char *line)
 {
-	char *prompt_text = "$ ";
+	char *prompt_text = "#cisfun$ ";
 	char msgerror[50];
 	char **args = malloc(sizeof(char *));
 

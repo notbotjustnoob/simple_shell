@@ -14,7 +14,7 @@ char *read_line(void)
 {
 	char *line = NULL;
 	size_t bufsize = 0;
-	char *prompt_text = "$ ";
+	char *prompt_text = "#cisfun$ ";
 
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
