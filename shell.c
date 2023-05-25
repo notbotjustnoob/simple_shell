@@ -27,8 +27,8 @@ char *read_line(void)
 		if (feof(stdin))
 		{
 			exit(EXIT_SUCCESS);
-		} 
-		else  
+		}
+		else
 		{
 			perror("$");
 			exit(EXIT_FAILURE);
@@ -47,17 +47,17 @@ char *read_line(void)
 char **split_line(char *line)
 {
 	int bufsize = BUFFER_SIZE, position = 0;
-	char **tokens = malloc(bufsize * sizeof(char*));
+	char **tokens = malloc(bufsize * sizeof(char *));
 	char *token;
 
-	if (!tokens) 
+	if (!tokens)
 	{
 		fprintf(stderr, "$: allocation error\n");
 		exit(EXIT_FAILURE);
 	}
 
 	token = strtok(line, DELIMITERS);
-	while (token != NULL) 
+	while (token != NULL)
 	{
 		tokens[position] = token;
 		position++;
@@ -65,8 +65,8 @@ char **split_line(char *line)
 		if (position >= bufsize)
 		{
 			bufsize += BUFFER_SIZE;
-			tokens = realloc(tokens, bufsize * sizeof(char*));
-			if (!tokens) 
+			tokens = realloc(tokens, bufsize * sizeof(char *));
+			if (!tokens)
 			{
 				fprintf(stderr, "$: allocation error\n");
 				exit(EXIT_FAILURE);
@@ -76,7 +76,7 @@ char **split_line(char *line)
 		token = strtok(NULL, DELIMITERS);
 	}
 	tokens[position] = NULL;
-	return tokens;
+	return (tokens);
 }
 
 /**
@@ -92,22 +92,21 @@ int launch_program(char **args)
 	int status;
 
 	pid = fork();
-	if (pid == 0) 
+	if (pid == 0)
 	{
 		if (execvp(args[0], args) == -1)
 		{
 			perror("$");
 		}
 		exit(EXIT_FAILURE);
-	} 
+	}
 	else if (pid < 0)
 	{
 		perror("$");
-	} 
+	}
 	else
 	{
-		do
-		{
+		do {
 			waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
@@ -126,7 +125,7 @@ int execute_command(char **args)
 {
 	if (args[0] == NULL)
 	{
-		return 1;
+		return (1);
 	}
 
 	if (strcmp(args[0], "exit") == 0)
@@ -144,10 +143,10 @@ int execute_command(char **args)
 			env++;
 		}
 
-		return 1;
+		return (1);
 	}
 
-	return launch_program(args);
+	return (launch_program(args));
 }
 
 /**
@@ -156,16 +155,15 @@ int execute_command(char **args)
  * Return: 0 if successful, 1 if an error occurs
  */
 
-int main()
+int main(void)
 {
 	char *line;
 	char **args;
 	int status;
 
-	do 
-	{
-		
-		write(STDOUT_FILENO, "$ ", 2);
+	do {
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$ ", 2);
 		line = read_line();
 		args = split_line(line);
 		status = execute_command(args);
@@ -174,5 +172,5 @@ int main()
 		free(args);
 	} while (status);
 
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
