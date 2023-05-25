@@ -164,6 +164,7 @@ int main()
 
 	do 
 	{
+		
 		write(STDOUT_FILENO, "$ ", 2);
 		line = read_line();
 		args = split_line(line);
